@@ -274,7 +274,7 @@ tbody tr:hover {
     }
 
     table {
-        display: flex;
+        display: grid-lanes;
         overflow: auto;
     }
 }
