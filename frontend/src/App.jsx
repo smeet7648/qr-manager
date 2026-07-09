@@ -25,13 +25,7 @@ function App() {
 
       <Route
         path="/student"
-        element={
-          token && role === "student" ? (
-            <Student />
-          ) : (
-            <Navigate to="/" />
-          )
-        }
+        element={<Student />}
       />
 
       <Route
