@@ -12,29 +12,20 @@ const app = express();
 
 const server = http.createServer(app);
 
-/*
------------------------------------------------------
-Replace this with your Netlify URL after deployment
------------------------------------------------------
-*/
+/* Allowed Frontend URLs */
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "merry-beijinho-ce2cc5.netlify.app",
+  "https://merry-beijinho-ce2cc5.netlify.app",
 ];
 
 // Express CORS
 
 app.use(
   cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
+    origin: allowedOrigins,
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
 
@@ -56,12 +47,8 @@ app.set("io", io);
 
 mongoose
   .connect(process.env.MONGO_URI)
-  .then(() => {
-    console.log("MongoDB Connected");
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+  .then(() => console.log("✅ MongoDB Connected"))
+  .catch((err) => console.log(err));
 
 // Routes
 
@@ -69,7 +56,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/attendance", attendanceRoutes);
 
 app.get("/", (req, res) => {
-  res.send("QR Attendance Backend Running");
+  res.send("Backend Running");
 });
 
 // Socket
@@ -82,10 +69,10 @@ io.on("connection", (socket) => {
   });
 });
 
-// Start Server
+// Server
 
 const PORT = process.env.PORT || 5000;
 
 server.listen(PORT, () => {
-  console.log(`Server Running On Port ${PORT}`);
+  console.log(`Server Running On ${PORT}`);
 });
