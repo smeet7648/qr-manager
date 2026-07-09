@@ -80,7 +80,7 @@ export default function Teacher() {
         <button onClick={generateQR}>Generate QR</button>
 
         {qrCode && (
-          <div className="qrBox">
+          <div>
             <QRGenerator value={qrCode} />
           </div>
         )}
@@ -115,8 +115,6 @@ export default function Teacher() {
                   attendance.map((item) => (
                     <tr key={item._id}>
                       <td>{item.studentId?.name}</td>
-
-                      <td>{item.studentId?.email}</td>
 
                       <td>{item.date}</td>
 
