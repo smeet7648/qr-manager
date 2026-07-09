@@ -257,34 +257,61 @@ tbody tr:hover {
 }
 
 /* Responsive */
+@media (max-width:768px){
 
-@media(max-width:768px) {
-
-    .navbar {
-        padding: 20px;
-        flex-direction: column;
-        height: auto;
+    .navbar{
+        padding:15px 20px;
+        flex-direction:column;
+        gap:15px;
+        height:auto;
     }
 
-    .card {
-        width: 90%;
+    .navbar h2{
+        font-size:24px;
     }
 
-    .dashboard {
-        width: 95%;
+    .card{
+        width:92%;
+        padding:25px;
     }
 
-    .dashboard input {
-        width: 100%;
+    .dashboard{
+        width:95%;
+        margin:20px auto;
     }
 
-    .qrBox {
-        width: 100%;
+    .dashboard input{
+        width:100%;
     }
 
-    table {
-        display: block;
-        overflow: auto;
+    .dashboard button{
+        width:100%;
+        margin:10px 0;
     }
 
+    .qrBox{
+        width:100%;
+    }
+
+    .table-container{
+        width:100%;
+        overflow-x:auto;
+        border-radius:15px;
+    }
+
+    table{
+        width:100%;
+        min-width:650px;
+        display:table;
+    }
+
+    th,
+    td{
+        padding:14px;
+        white-space:nowrap;
+    }
+
+    #reader{
+        width:100%;
+    }
 }

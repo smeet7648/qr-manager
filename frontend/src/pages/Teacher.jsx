@@ -4,30 +4,38 @@ import { io } from "socket.io-client";
 import Navbar from "../components/Navbar";
 import QRGenerator from "../components/QRGenerator";
 
-const socket = io("https://qr-manager-fg6r.onrender.com");
+const socket = io("https://qr-manager-fg6r.onrender.com", {
+  transports: ["websocket", "polling"],
+});
 
 export default function Teacher() {
   const token = localStorage.getItem("token");
 
   const [attendance, setAttendance] = useState([]);
-
   const [qrCode, setQrCode] = useState("");
 
   const loadAttendance = async () => {
-    const res = await axios.get("https://qr-manager-fg6r.onrender.com/api/attendance/all", {
-      headers: {
-        Authorization: token,
-      },
-    });
+    try {
+      const res = await axios.get(
+        "https://qr-manager-fg6r.onrender.com/api/attendance/all",
+        {
+          headers: {
+            Authorization: token,
+          },
+        },
+      );
 
-    setAttendance(res.data);
+      setAttendance(res.data);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {
     loadAttendance();
 
-    socket.on("attendanceAdded", (student) => {
-      setAttendance((prev) => [...prev, student]);
+    socket.on("attendanceAdded", () => {
+      loadAttendance();
     });
 
     return () => {
@@ -36,16 +44,20 @@ export default function Teacher() {
   }, []);
 
   const generateQR = async () => {
-    const res = await axios.get(
-      "https://qr-manager-fg6r.onrender.com/api/attendance/generate",
-      {
-        headers: {
-          Authorization: token,
+    try {
+      const res = await axios.get(
+        "https://qr-manager-fg6r.onrender.com/api/attendance/generate",
+        {
+          headers: {
+            Authorization: token,
+          },
         },
-      },
-    );
+      );
 
-    setQrCode(res.data.qrCode);
+      setQrCode(res.data.qrCode);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -57,31 +69,32 @@ export default function Teacher() {
 
         <button onClick={generateQR}>Generate QR</button>
 
-        {qrCode && <QRGenerator value={qrCode} />}
-
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-
-              <th>Date</th>
-
-              <th>Status</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {attendance.map((item) => (
-              <tr key={item._id}>
-                <td>{item.studentId.name}</td>
-
-                <td>{item.date}</td>
-
-                <td>{item.status}</td>
+        {qrCode && (
+          <div className="qrBox">
+            <QRGenerator value={qrCode} />
+          </div>
+        )}
+        <div className="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Status</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+
+            <tbody>
+              {attendance.map((item) => (
+                <tr key={item._id}>
+                  <td>{item.studentId?.name}</td>
+                  <td>{item.date}</td>
+                  <td>{item.status}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
