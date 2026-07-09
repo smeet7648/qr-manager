@@ -19,7 +19,7 @@ export default function History() {
   const getHistory = async () => {
 
     const res = await axios.get(
-      "https://qr-attendance.onrender.com/api/attendance/history",
+      "https://qr-manager-fg6r.onrender.com//api/attendance/history",
       {
         headers: {
           Authorization: token,

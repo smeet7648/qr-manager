@@ -18,7 +18,7 @@ export default function Login() {
     try {
 
       const res = await axios.post(
-        "https://qr-attendance.onrender.com/api/auth/login",
+        "https://qr-manager-fg6r.onrender.com//api/auth/login",
         {
           email,
           password,
