@@ -20,7 +20,7 @@ Replace this with your Netlify URL after deployment
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://YOUR-NETLIFY-SITE.netlify.app",
+  "merry-beijinho-ce2cc5.netlify.app",
 ];
 
 // Express CORS
