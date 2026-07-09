@@ -30,7 +30,7 @@ export default function Student() {
       async (decodedText) => {
         try {
           const res = await axios.post(
-            "http://localhost:5000/api/attendance/scan",
+            "https://qr-attendance.onrender.com/api/attendance/scan",
             {
               qrCode: decodedText,
             },

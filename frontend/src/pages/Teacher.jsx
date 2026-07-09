@@ -4,7 +4,7 @@ import { io } from "socket.io-client";
 import Navbar from "../components/Navbar";
 import QRGenerator from "../components/QRGenerator";
 
-const socket = io("http://localhost:5000");
+const socket = io("https://qr-attendance.onrender.com");
 
 export default function Teacher() {
   const token = localStorage.getItem("token");
@@ -14,7 +14,7 @@ export default function Teacher() {
   const [qrCode, setQrCode] = useState("");
 
   const loadAttendance = async () => {
-    const res = await axios.get("http://localhost:5000/api/attendance/all", {
+    const res = await axios.get("https://qr-attendance.onrender.com/api/attendance/all", {
       headers: {
         Authorization: token,
       },
@@ -37,7 +37,7 @@ export default function Teacher() {
 
   const generateQR = async () => {
     const res = await axios.get(
-      "http://localhost:5000/api/attendance/generate",
+      "https://qr-attendance.onrender.com/api/attendance/generate",
       {
         headers: {
           Authorization: token,
