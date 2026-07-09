@@ -30,7 +30,7 @@ export default function Student() {
       async (decodedText) => {
         try {
           const res = await axios.post(
-            "https://qr-manager-fg6r.onrender.com//api/attendance/scan",
+            "https://qr-manager-fg6r.onrender.com/api/attendance/scan",
             {
               qrCode: decodedText,
             },

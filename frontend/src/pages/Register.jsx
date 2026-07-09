@@ -27,7 +27,7 @@ export default function Register() {
     try {
 
       const res = await axios.post(
-        "https://qr-manager-fg6r.onrender.com//api/auth/register",
+        "https://qr-manager-fg6r.onrender.com/api/auth/register",
         form
       );
 
